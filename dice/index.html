@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/jquery-3.5.1.js"></script>
+  <script src="js/scripts.js"></script>
+  <title>Pig Rollin'</title>
+</head>
+<body>
+<h1 class="jumbotron text-center">Pig Rollin'</h1>
+<div class="container" id="player-cards">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-title">
+          <h3 id="player1" class="text-center">Piggy 1</h3>
+          <div class="card-body">
+            <div class="card">
+              <div class="card-title">
+              <h5>Die Value</h5>
+                <div class="card-body" id="player1DieValue">
+                </div>
+              </div>
+            </div>  
+            <div class="card">
+              <div class="card-title">
+              <h5>Current Roll</h5>
+                <div class="card-body" id="player1CurrentRoll">            
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">
+              <h5>Total Score</h5>
+                <div class="card-body" id="player1TotalScore">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-success" id="player1roll">Roll</button>
+        <button type="button" class="btn btn-danger" id="player1hold">Hold</button>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-title">
+          <h3 id="player2" class="text-center">Piggy 2</h3>
+          <div class="card-body">
+            <div class="card">
+              <div class="card-title">
+              <h5>Die Value</h5>
+                <div class="card-body" id="player2DieValue">  
+                </div>
+              </div>
+            </div> 
+            <div class="card">
+              <div class="card-title">
+              <h5>Current Roll</h5>
+                <div class="card-body" id="player2CurrentRoll">
+                  
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">
+              <h5>Total Score</h5>
+                <div class="card-body" id="player2TotalScore">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-success" id="player2roll">Roll</button>
+        <button type="button" class="btn btn-danger" id="player2hold">Hold</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container" id="winner-card">
+  <div class="card">
+    <div class="card-body" id="winner">
+    </div>
+  </div>
+</div>
+  
+</body>
+</html>
