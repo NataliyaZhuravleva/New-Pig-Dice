@@ -6,11 +6,11 @@ function Gamer(gamerName, rollValue, currentScore, totalScore) {
   this.totalScore = totalScore;
 };
 
-Gamer.prototype.updateUserScore = function () {
+Gamer.prototype.updateUserScore = function (refer) {
   this.currentScore += this.rollValue;
   if (this.rollValue === 1) {
     this.currentScore = 0;
-    this.displayUserTotalScore();
+    this.displayUserTotalScore(refer);
   }
 };
 
@@ -26,50 +26,24 @@ Gamer.prototype.updateTotalScore = function (currentScore) {
   }
 };
 
-Gamer.prototype.displayUserScore = function () {
-  if (this.rollValue === gamer1.rollValue) {
-    let refer1 = $("div#player1CurrentRoll");
-    let htmlForPlayer1CurrentScore = "";
-    htmlForPlayer1CurrentScore += "<p>" + gamer1.currentScore + "</p>";
-    refer1.html(htmlForPlayer1CurrentScore);
-  }
-  else if (this.rollValue === gamer2.rollValue) {
-    let refer2 = $("div#player2CurrentRoll");
-    let htmlForPlayer2CurrentScore = "";
-    htmlForPlayer2CurrentScore += "<p>" + gamer2.currentScore + "</p>";
-    refer2.html(htmlForPlayer2CurrentScore);
-  }
-};
+Gamer.prototype.displayUserScore = function (refer) {
+    let htmlForPlayerCurrentScore = "";
+    htmlForPlayerCurrentScore += "<p>" + this.currentScore + "</p>";
+    refer.html(htmlForPlayerCurrentScore);
+  };
 
-Gamer.prototype.displayUserTotalScore = function (refer1) {
-  if (this.rollValue === gamer1.rollValue) {
-    
-    let htmlForPlayer1TotalScore = "";
-    htmlForPlayer1TotalScore += "<p>" + this.totalScore + "</p>";
-    refer1.html(htmlForPlayer1TotalScore);
-  }
-  else if (this.rollValue === gamer2.rollValue) {
-    let refer2 = $("div#player2TotalScore")
-    let htmlForPlayer2TotalScore = "";
-    htmlForPlayer2TotalScore += "<p>" + this.totalScore + "</p>";
-    refer2.html(htmlForPlayer2TotalScore);
-  }
-}
+Gamer.prototype.displayUserTotalScore = function (refer) {
+    let htmlForPlayerTotalScore = "";
+    htmlForPlayerTotalScore += "<p>" + this.totalScore + "</p>";
+    refer.html(htmlForPlayerTotalScore);
+  };
 
-Gamer.prototype.displayRollValue = function () {
-  if (this.rollValue === gamer1.rollValue) {
-    let refer1 = $("div#player1DieValue");
-    let htmlForPlayer1DieValue = "";
-    htmlForPlayer1DieValue += "<p>" + this.rollValue + "</p>";
-    refer1.html(htmlForPlayer1DieValue);
-  }
-  else if (this.rollValue === gamer2.rollValue) {
-    let refer2 = $("div#player2DieValue");
-    let htmlForPlayer2DieValue = "";
-    htmlForPlayer2DieValue += "<p>" + this.rollValue + "</p>";
-    refer2.html(htmlForPlayer2DieValue);
-  }
-};
+Gamer.prototype.displayRollValue = function (refer) {
+    let htmlForPlayerDieValue = "";
+    htmlForPlayerDieValue += "<p>" + this.rollValue + "</p>";
+    refer.html(htmlForPlayerDieValue);
+  };
+
 
 Gamer.prototype.roll = function () {
   this.rollValue = Math.floor(Math.random() * 6) + 1;
@@ -77,17 +51,6 @@ Gamer.prototype.roll = function () {
 
 let gamer1 = new Gamer("Gamer1", 0, 0, 0);
 let gamer2 = new Gamer("Gamer2", 0, 0, 0);
-
-//Die Business Logic
-//function Dice() {
-//this.rollValues = [];
-//let rollValue=0;
-//}
-
-//let dice = new Dice;
-//let rollValues=[];
-//let rollValue = 0;
-
 
 function onHold1() {
   $("button#player1hold").prop('disabled', true);
@@ -109,21 +72,28 @@ function attachButtonRollListeners() {
   $("button#player1roll").on("click", function () {
     gamer1.roll();
     if (gamer1.rollValue === 1) {
+      gamer1.displayRollValue($("div#player1DieValue"));
+      gamer1.updateUserScore($("div#player1TotalScore"));
+      gamer1.displayUserScore($("div#player1CurrentRoll"));
       onHold1();
     }
-    gamer1.updateUserScore();
-    gamer1.displayRollValue();
-    gamer1.displayUserScore();
+    gamer1.updateUserScore($("div#player1TotalScore"));
+    gamer1.displayRollValue($("div#player1DieValue"));
+  
+    gamer1.displayUserScore($("div#player1CurrentRoll"));
 
   });
   $("button#player2roll").on("click", function () {
     gamer2.roll();
     if (gamer2.rollValue === 1) {
+      gamer2.displayRollValue($("div#player2DieValue"));
+      gamer2.updateUserScore($("div#player2TotalScore"));
+      gamer2.displayUserScore($("div#player2CurrentRoll"));
       onHold2()
     }
-    gamer2.updateUserScore();
-    gamer2.displayRollValue();
-    gamer2.displayUserScore();
+    gamer2.updateUserScore($("div#player2TotalScore"));
+    gamer2.displayRollValue($("div#player2DieValue"));
+    gamer2.displayUserScore($("div#player2CurrentRoll"));
   });
 };
 
@@ -136,7 +106,7 @@ function attachButtonHoldListeners() {
   });
   $("button#player2hold").on("click", function () {
     gamer2.updateTotalScore(gamer2.currentScore);
-    gamer2.displayUserTotalScore($("div#player1TotalScore"));
+    gamer2.displayUserTotalScore($("div#player2TotalScore"));
     gamer2.currentScore = 0;
     onHold2()
   });
